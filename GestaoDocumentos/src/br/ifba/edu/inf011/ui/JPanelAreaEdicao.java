@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import br.ifba.edu.inf011.model.documentos.Documento;
 
 public class JPanelAreaEdicao extends JPanel{	
     private JTextArea txtEditor;

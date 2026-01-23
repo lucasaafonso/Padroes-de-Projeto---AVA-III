@@ -8,7 +8,7 @@ import br.ifba.edu.inf011.model.FWDocumentException;
 import br.ifba.edu.inf011.model.operador.Operador;
 import br.ifba.edu.inf011.prototype.Prototipavel;
 
-public class CalculoPericial extends AbstractDocumentoBase implements Documento, Prototipavel {
+public class CalculoPericial extends AbstractDocumentoBase {
 
 	public CalculoPericial(CalculoPericial calculo) throws FWDocumentException{
 		this.conteudo = this.getConteudo();

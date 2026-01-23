@@ -6,7 +6,7 @@ import br.ifba.edu.inf011.model.Assinatura;
 import br.ifba.edu.inf011.model.FWDocumentException;
 import br.ifba.edu.inf011.model.documentos.Documento;
 
-public class AssinaturaDecorator extends DocumentoDecorator implements Documento {
+public class AssinaturaDecorator extends DocumentoDecorator {
 	private Assinatura assinatura;
 	
 	public AssinaturaDecorator(Documento wrappeeDocumento, Assinatura assinatura) {

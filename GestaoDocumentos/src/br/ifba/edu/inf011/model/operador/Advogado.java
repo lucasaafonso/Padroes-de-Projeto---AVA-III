@@ -2,9 +2,7 @@ package br.ifba.edu.inf011.model.operador;
 
 import br.ifba.edu.inf011.prototype.Prototipavel;
 
-public class Advogado implements Operador, Prototipavel{
-
-	
+public class Advogado implements Operador {
 	private String id;
 	private String nome;
 	
@@ -21,8 +19,6 @@ public class Advogado implements Operador, Prototipavel{
 		this.id = perito.getId();
 		this.nome = perito.getNome();
 	}
-	
-	
 
 	public void inicializar(String id, String nome) {
 		this.id = id;
