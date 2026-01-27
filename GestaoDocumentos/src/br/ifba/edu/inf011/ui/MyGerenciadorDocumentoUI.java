@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import br.ifba.edu.inf011.af.DocumentOperatorFactory;
 import br.ifba.edu.inf011.model.FWDocumentException;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
+import br.ifba.edu.inf011.model.factory.AutenticadorFactory;
+import br.ifba.edu.inf011.model.strategy.AutenticadorStrategy;
 
 public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	 public MyGerenciadorDocumentoUI(DocumentOperatorFactory factory) {
@@ -68,7 +70,8 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	private void criarDocumento(Privacidade privacidade) {
         try {
             int tipoIndex = this.barraSuperior.getTipoSelecionadoIndice();
-            this.atual = this.controller.criarDocumento(tipoIndex, privacidade);
+			AutenticadorStrategy autenticadorStrategy = AutenticadorFactory.criarAutenticador(tipoIndex);
+            this.atual = this.controller.criarDocumento(autenticadorStrategy, privacidade);
             this.barraDocs.addDoc("[" + atual.getNumero() + "]");
             this.refreshUI();
         } catch (FWDocumentException e) {

@@ -15,6 +15,13 @@ public class AssinaturaDecorator extends DocumentoDecorator {
 	}
 	
 	@Override
+	public void setConteudo(String conteudo){
+	    String regexAssinatura = "\\nAssinado por: .*? em \\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}";
+	    String conteudoLimpo = conteudo.replaceAll(regexAssinatura, "");
+	    super.setConteudo(conteudoLimpo.trim());
+	}	
+	
+	@Override
 	public String getConteudo() throws FWDocumentException{
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		String dataFormatada = this.assinatura.dataAssinatura().format(formatador);
