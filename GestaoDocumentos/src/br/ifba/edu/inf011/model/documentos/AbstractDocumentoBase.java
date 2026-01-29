@@ -9,7 +9,6 @@ import br.ifba.edu.inf011.model.memento.DocumentoMemento;
 import br.ifba.edu.inf011.model.operador.Operador;
 
 public abstract class AbstractDocumentoBase implements Documento{
-
     protected String numero;
     protected String conteudo;
     protected Operador proprietario; 

@@ -61,9 +61,11 @@ public class GerenciadorDocumentoModel {
         Operador operador = factory.getOperador();
         operador.inicializar("jdc", "João das Couves");
 
-        Command command = new AssinarDocumentoCommand((AbstractDocumentoBase)documento, gestor, operador);
+        AssinarDocumentoCommand command = new AssinarDocumentoCommand((AbstractDocumentoBase)documento, gestor, operador);
         commandManager.executar(command);
-        this.atual = documento;
+        Documento assinado = command.getNovoDocumento();
+        this.atualizarRepositorio(documento, assinado);
+        this.atual = assinado;
         return atual;
     }    
     
@@ -71,9 +73,11 @@ public class GerenciadorDocumentoModel {
         if (documento == null) 
             return null;
 
-        Command command = new ProtegerDocumentoCommand((AbstractDocumentoBase)documento, gestor);
+        ProtegerDocumentoCommand command = new ProtegerDocumentoCommand((AbstractDocumentoBase)documento, gestor);
         commandManager.executar(command);
-        this.atual = documento;
+        Documento protegido = command.getNovoDocumento();
+        this.atualizarRepositorio(documento, protegido);
+        this.atual = protegido;
         return atual;        
     }    
     
@@ -81,9 +85,11 @@ public class GerenciadorDocumentoModel {
         if (documento == null) 
             return null;
 
-        Command command = new TornarUrgenteCommand((AbstractDocumentoBase)documento, gestor);
+        TornarUrgenteCommand command = new TornarUrgenteCommand((AbstractDocumentoBase)documento, gestor);
         commandManager.executar(command);
-        this.atual = documento;
+        Documento urgente = command.getNovoDocumento();
+        this.atualizarRepositorio(documento, urgente);
+        this.atual = urgente;
         return atual;         
     }
 
@@ -95,7 +101,7 @@ public class GerenciadorDocumentoModel {
                 new EditarDocumentoCommand((AbstractDocumentoBase) documento, conteudo),
                 new AssinarDocumentoCommand((AbstractDocumentoBase) documento, gestor, operador)
         ));
-
+        
         commandManager.executar(macro);
         this.atual = documento;
         return atual;

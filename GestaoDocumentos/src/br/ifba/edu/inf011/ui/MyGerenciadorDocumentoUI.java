@@ -84,13 +84,16 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 
 	private void undo() {
 		this.controller.desfazer();
+		this.refreshUI();
 	}
 
 	private void redo() {
 		this.controller.refazer();
+		this.refreshUI();
 	}
 
 	private void consolidar() {
 		this.controller.consolidar();
+		this.refreshUI();
 	}
 }
