@@ -5,12 +5,12 @@ import br.ifba.edu.inf011.model.GestorDocumento;
 import br.ifba.edu.inf011.model.documentos.AbstractDocumentoBase;
 import br.ifba.edu.inf011.model.memento.DocumentoMemento;
 
-public class TornarUrgenteCommand implements Command{
+public class ProtegerDocumentoCommand implements Command{
     private AbstractDocumentoBase documento;
     private GestorDocumento gestor;
     private DocumentoMemento backup;
 
-    public TornarUrgenteCommand(AbstractDocumentoBase documento, GestorDocumento gestor) {
+    public ProtegerDocumentoCommand(AbstractDocumentoBase documento, GestorDocumento gestor) {
         this.documento = documento;
         this.gestor = gestor;
     }
@@ -18,13 +18,14 @@ public class TornarUrgenteCommand implements Command{
     @Override
     public void execute() {
         backup = documento.salvar();
-        gestor.tornarUrgente(documento);
-        DocumentoLogger.log("Documento marcado como urgente");
+        gestor.proteger(documento);
+        DocumentoLogger.log("Documento protegido");
     }
 
     @Override
     public void undo() {
         documento.restaurar(backup);
-        DocumentoLogger.log("Undo Tornar Urgente");
+        DocumentoLogger.log("Undo ProtegerDocumento");
     }
+
 }

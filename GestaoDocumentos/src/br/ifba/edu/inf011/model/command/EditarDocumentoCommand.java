@@ -24,5 +24,6 @@ public class EditarDocumentoCommand implements Command{
     @Override
     public void undo() {
         documento.restaurar(backup);
+        DocumentoLogger.log("Undo Editar Documento");
     }
 }

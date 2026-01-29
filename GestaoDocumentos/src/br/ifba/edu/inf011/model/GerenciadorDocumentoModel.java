@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ifba.edu.inf011.af.DocumentOperatorFactory;
+import br.ifba.edu.inf011.model.command.AssinarDocumentoCommand;
+import br.ifba.edu.inf011.model.command.Command;
 import br.ifba.edu.inf011.model.command.CommandManager;
 import br.ifba.edu.inf011.model.command.EditarDocumentoCommand;
+import br.ifba.edu.inf011.model.command.MacroCommand;
+import br.ifba.edu.inf011.model.command.ProtegerDocumentoCommand;
+import br.ifba.edu.inf011.model.command.TornarUrgenteCommand;
 import br.ifba.edu.inf011.model.documentos.AbstractDocumentoBase;
 import br.ifba.edu.inf011.model.documentos.Documento;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
@@ -43,42 +48,84 @@ public class GerenciadorDocumentoModel {
         return documento;
     }
 
-    public void salvarDocumento(Documento doc, String conteudo) throws Exception {
-        EditarDocumentoCommand cmd = new EditarDocumentoCommand((AbstractDocumentoBase) doc, conteudo);
-        commandManager.executar(cmd);
-        this.atual = doc;
-    }
-
-    public List<Documento> getRepositorio() {
-        return repositorio;
+    public void salvarDocumento(Documento documento, String conteudo) throws Exception {
+        EditarDocumentoCommand command = new EditarDocumentoCommand((AbstractDocumentoBase) documento, conteudo);
+        commandManager.executar(command);
+        this.atual = documento;
     }
     
-    public Documento assinarDocumento(Documento doc) throws FWDocumentException {
-        if (doc == null) return null;
+    public Documento assinarDocumento(Documento documento) throws FWDocumentException {
+        if (documento == null) 
+            return null;
+
         Operador operador = factory.getOperador();
         operador.inicializar("jdc", "João das Couves");
-        Documento assinado = gestor.assinar(doc, operador);
-        this.atualizarRepositorio(doc, assinado);
-        this.atual = assinado;
-        return assinado;
+
+        Command command = new AssinarDocumentoCommand((AbstractDocumentoBase)documento, gestor, operador);
+        commandManager.executar(command);
+        this.atual = documento;
+        return atual;
     }    
     
-    public Documento protegerDocumento(Documento doc) throws FWDocumentException {
-        if (doc == null) return null;
-        Documento protegido = gestor.proteger(doc);
-        this.atualizarRepositorio(doc, protegido);
-        this.atual = protegido;
-        return protegido;        
+    public Documento protegerDocumento(Documento documento) throws FWDocumentException {
+        if (documento == null) 
+            return null;
+
+        Command command = new ProtegerDocumentoCommand((AbstractDocumentoBase)documento, gestor);
+        commandManager.executar(command);
+        this.atual = documento;
+        return atual;        
     }    
     
-    
-    public Documento tornarUrgente(Documento doc) throws FWDocumentException {
-        if (doc == null) return null;
-        Documento urgente = gestor.tornarUrgente(doc);
-        this.atualizarRepositorio(doc, urgente);
-        this.atual = urgente;
-        return urgente;         
-    }      
+    public Documento tornarUrgente(Documento documento) throws FWDocumentException {
+        if (documento == null) 
+            return null;
+
+        Command command = new TornarUrgenteCommand((AbstractDocumentoBase)documento, gestor);
+        commandManager.executar(command);
+        this.atual = documento;
+        return atual;         
+    }
+
+    public Documento acaoRapidaAlterarEAssinar(Documento documento, String conteudo) throws FWDocumentException{
+        Operador operador = factory.getOperador();
+        operador.inicializar("jdc", "João das Couves");
+
+        Command macro = new MacroCommand(List.of(
+                new EditarDocumentoCommand((AbstractDocumentoBase) documento, conteudo),
+                new AssinarDocumentoCommand((AbstractDocumentoBase) documento, gestor, operador)
+        ));
+
+        commandManager.executar(macro);
+        this.atual = documento;
+        return atual;
+    }
+
+    public Documento acaoRapidaPriorizar(Documento documento) throws FWDocumentException{
+        Operador operador = factory.getOperador();
+        operador.inicializar("jdc", "João das Couves");
+
+        Command macro = new MacroCommand(List.of(
+                new TornarUrgenteCommand((AbstractDocumentoBase) documento, gestor),
+                new AssinarDocumentoCommand((AbstractDocumentoBase) documento, gestor, operador)
+        ));
+
+        commandManager.executar(macro);
+        this.atual = documento;
+        return atual;
+    }
+
+    public void desfazer() {
+        commandManager.undo();
+    }
+
+    public void refazer() {
+        commandManager.redo();
+    }
+
+    public void consolidar() {
+        commandManager.consolidar();
+    }
     
     public void atualizarRepositorio(Documento antigo, Documento novo) {
         int index = repositorio.indexOf(antigo);
@@ -86,6 +133,10 @@ public class GerenciadorDocumentoModel {
             repositorio.set(index, novo);
         }
     } 
+
+    public List<Documento> getRepositorio() {
+        return repositorio;
+    }
     
 	public Documento getDocumentoAtual() {
 		return this.atual;
@@ -94,8 +145,4 @@ public class GerenciadorDocumentoModel {
 	public void setDocumentoAtual(Documento doc) {
 		this.atual = doc;
 	}      
-    
-    public void refazer() {
-        commandManager.undo();
-    }
 }

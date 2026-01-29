@@ -12,8 +12,9 @@ public class AssinarDocumentoCommand implements Command{
     private GestorDocumento gestor;
     private Operador operador;
 
-    public AssinarDocumentoCommand (AbstractDocumentoBase documento, Operador operador) {
+    public AssinarDocumentoCommand (AbstractDocumentoBase documento, GestorDocumento gestor, Operador operador) {
         this.documento = documento;
+        this.gestor = gestor;
         this.operador = operador;
     }
 
@@ -27,5 +28,6 @@ public class AssinarDocumentoCommand implements Command{
     @Override
     public void undo() {
         documento.restaurar(backup);
+        DocumentoLogger.log("Undo Assinar Documnto");
     }
 }
