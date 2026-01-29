@@ -18,6 +18,7 @@ public class JPanelBarraSuperior<T> extends JPanel{
         this.add(this.tipos);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public T getSelected() {
 		return (T) this.tipos.getSelectedItem();
 	}

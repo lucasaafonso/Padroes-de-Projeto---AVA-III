@@ -21,6 +21,9 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 		comandos.addOperacao("🔑 Proteger", e->this.protegerDocumento());
 		comandos.addOperacao("✍️ Assinar", e->this.assinarDocumento());
 		comandos.addOperacao("⏰ Urgente", e->this.tornarUrgente());
+		comandos.addOperacao("↩️ Desfazer", e->this.undo());
+		comandos.addOperacao("↪️ Refazer", e->this.redo());
+		comandos.addOperacao("✅ Consolidar", e->this.consolidar());
 		return comandos;
 	 }
 	
@@ -78,4 +81,16 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
     }	
+
+	private void undo() {
+		this.controller.desfazer();
+	}
+
+	private void redo() {
+		this.controller.refazer();
+	}
+
+	private void consolidar() {
+		this.controller.consolidar();
+	}
 }
