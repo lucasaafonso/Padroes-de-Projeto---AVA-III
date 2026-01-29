@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
 public class JPanelAreaEdicao extends JPanel{	
     private JTextArea txtEditor;
 	

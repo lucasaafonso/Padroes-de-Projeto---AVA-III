@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ifba.edu.inf011.af.DocumentOperatorFactory;
+import br.ifba.edu.inf011.model.command.CommandManager;
+import br.ifba.edu.inf011.model.command.EditarDocumentoCommand;
+import br.ifba.edu.inf011.model.documentos.AbstractDocumentoBase;
 import br.ifba.edu.inf011.model.documentos.Documento;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
 import br.ifba.edu.inf011.model.operador.Operador;
 import br.ifba.edu.inf011.model.strategy.AutenticadorStrategy;
 
 public class GerenciadorDocumentoModel {
+    private CommandManager commandManager = new CommandManager();
 	private List<Documento> repositorio;
     private DocumentOperatorFactory factory;
     private Autenticador autenticador;
@@ -40,9 +44,8 @@ public class GerenciadorDocumentoModel {
     }
 
     public void salvarDocumento(Documento doc, String conteudo) throws Exception {
-        if (doc != null) {
-            doc.setConteudo(conteudo);
-        }
+        EditarDocumentoCommand cmd = new EditarDocumentoCommand((AbstractDocumentoBase) doc, conteudo);
+        commandManager.executar(cmd);
         this.atual = doc;
     }
 
@@ -90,5 +93,9 @@ public class GerenciadorDocumentoModel {
 	
 	public void setDocumentoAtual(Documento doc) {
 		this.atual = doc;
-	}        
+	}      
+    
+    public void refazer() {
+        commandManager.undo();
+    }
 }

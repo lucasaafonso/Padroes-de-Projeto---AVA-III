@@ -1,4 +1,4 @@
-package br.ifba.edu.inf011.model.documentos;
+package br.ifba.edu.inf011.model;
 
 import java.io.FileWriter;
 import java.io.IOException;

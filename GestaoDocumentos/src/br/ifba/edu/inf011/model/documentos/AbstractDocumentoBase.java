@@ -5,6 +5,7 @@ import java.util.Set;
 
 import br.ifba.edu.inf011.model.Assinatura;
 import br.ifba.edu.inf011.model.FWDocumentException;
+import br.ifba.edu.inf011.model.memento.DocumentoMemento;
 import br.ifba.edu.inf011.model.operador.Operador;
 
 public abstract class AbstractDocumentoBase implements Documento{
@@ -67,6 +68,22 @@ public abstract class AbstractDocumentoBase implements Documento{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
+	public DocumentoMemento salvar() {
+        return new DocumentoMemento(
+            this.numero,
+            this.conteudo,
+            this.privacidade,
+            this.proprietario
+        );
+    }
+
+	public void restaurar(DocumentoMemento memento) {
+        this.numero = memento.getNumero();
+        this.conteudo = memento.getConteudo();
+        this.privacidade = memento.getPrivacidade();
+        this.proprietario = memento.getProprietario();
+    }
     
     // Exemplo simples de representação do documento
     @Override
