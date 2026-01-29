@@ -26,3 +26,28 @@
 2026-01-29T20:08:01.304815400 - Redo: EditarDocumentoCommand
 2026-01-29T20:08:03.892326500 - Undo Editar Documento
 2026-01-29T20:08:03.892326500 - Undo: EditarDocumentoCommand
+2026-01-29T20:19:17.273324700 - Editar Documento
+2026-01-29T20:19:17.273324700 - Executado: EditarDocumentoCommand
+2026-01-29T20:19:19.082148900 - Assinar Documento
+2026-01-29T20:19:19.083211600 - Executado: AssinarDocumentoCommand
+2026-01-29T20:19:25.083045 - Undo Assinar Documnto
+2026-01-29T20:19:25.087794500 - Undo: AssinarDocumentoCommand
+2026-01-29T20:19:30.553182800 - Undo Editar Documento
+2026-01-29T20:19:30.553182800 - Undo: EditarDocumentoCommand
+2026-01-29T20:19:32.093073200 - Editar Documento
+2026-01-29T20:19:32.094263600 - Redo: EditarDocumentoCommand
+2026-01-29T20:19:32.258342800 - Assinar Documento
+2026-01-29T20:19:32.260891600 - Redo: AssinarDocumentoCommand
+2026-01-29T20:19:40.083001700 - Consolidado - histórico limpo
+2026-01-29T20:36:36.835437800 - Executado: CriarDocumentoCommand
+2026-01-29T20:36:39.716605500 - Editar Documento
+2026-01-29T20:36:39.716605500 - Executado: EditarDocumentoCommand
+2026-01-29T20:36:40.975628800 - Assinar Documento
+2026-01-29T20:36:40.975628800 - Executado: AssinarDocumentoCommand
+2026-01-29T20:36:41.975220900 - Executado: CriarDocumentoCommand
+2026-01-29T20:36:49.375491 - Undo Assinar Documnto
+2026-01-29T20:36:49.375491 - Undo: AssinarDocumentoCommand
+2026-01-29T20:36:50.062749500 - Undo Editar Documento
+2026-01-29T20:36:50.062749500 - Undo: EditarDocumentoCommand
+2026-01-29T20:41:12.946137700 - Executado: CriarDocumentoCommand
+2026-01-29T20:41:15.136291300 - Undo: CriarDocumentoCommand

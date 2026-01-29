@@ -7,6 +7,7 @@ import br.ifba.edu.inf011.af.DocumentOperatorFactory;
 import br.ifba.edu.inf011.model.command.AssinarDocumentoCommand;
 import br.ifba.edu.inf011.model.command.Command;
 import br.ifba.edu.inf011.model.command.CommandManager;
+import br.ifba.edu.inf011.model.command.CriarDocumentoCommand;
 import br.ifba.edu.inf011.model.command.EditarDocumentoCommand;
 import br.ifba.edu.inf011.model.command.MacroCommand;
 import br.ifba.edu.inf011.model.command.ProtegerDocumentoCommand;
@@ -34,15 +35,9 @@ public class GerenciadorDocumentoModel {
     }
 
     public Documento criarDocumento(AutenticadorStrategy autenticadorStrategy, Privacidade privacidade) throws FWDocumentException {
-        Operador operador = factory.getOperador();
-        Documento documento = factory.getDocumento();
-        
-        operador.inicializar("jdc", "João das Couves");
-        documento.inicializar(operador, privacidade);
-        
-        this.autenticador.setAutenticadorStrategy(autenticadorStrategy);
-        this.autenticador.autenticar(documento);
-
+        CriarDocumentoCommand command = new CriarDocumentoCommand(factory, autenticador, autenticadorStrategy, privacidade, repositorio);
+        commandManager.executar(command);
+        Documento documento = command.getDocumentoCriado();
         this.repositorio.add(documento);
         this.atual = documento;
         return documento;
