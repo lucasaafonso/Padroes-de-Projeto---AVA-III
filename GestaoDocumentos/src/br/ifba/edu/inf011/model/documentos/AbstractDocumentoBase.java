@@ -5,7 +5,7 @@ import java.util.Set;
 
 import br.ifba.edu.inf011.model.Assinatura;
 import br.ifba.edu.inf011.model.FWDocumentException;
-import br.ifba.edu.inf011.model.memento.DocumentoMemento;
+import br.ifba.edu.inf011.memento.DocumentoMemento;
 import br.ifba.edu.inf011.model.operador.Operador;
 
 public abstract class AbstractDocumentoBase implements Documento{

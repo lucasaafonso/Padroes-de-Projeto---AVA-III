@@ -1,7 +1,7 @@
 package br.ifba.edu.inf011.model;
 
 import br.ifba.edu.inf011.model.documentos.Documento;
-import br.ifba.edu.inf011.model.strategy.AutenticadorStrategy;
+import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
 
 public class Autenticador {
 	private AutenticadorStrategy autenticadorStrategy;

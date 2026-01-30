@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ifba.edu.inf011.af.DocumentOperatorFactory;
-import br.ifba.edu.inf011.model.command.AssinarDocumentoCommand;
-import br.ifba.edu.inf011.model.command.Command;
-import br.ifba.edu.inf011.model.command.CommandManager;
-import br.ifba.edu.inf011.model.command.CriarDocumentoCommand;
-import br.ifba.edu.inf011.model.command.EditarDocumentoCommand;
-import br.ifba.edu.inf011.model.command.MacroCommand;
-import br.ifba.edu.inf011.model.command.ProtegerDocumentoCommand;
-import br.ifba.edu.inf011.model.command.TornarUrgenteCommand;
+import br.ifba.edu.inf011.command.AssinarDocumentoCommand;
+import br.ifba.edu.inf011.command.Command;
+import br.ifba.edu.inf011.command.CommandManager;
+import br.ifba.edu.inf011.command.CriarDocumentoCommand;
+import br.ifba.edu.inf011.command.EditarDocumentoCommand;
+import br.ifba.edu.inf011.command.MacroCommand;
+import br.ifba.edu.inf011.command.ProtegerDocumentoCommand;
+import br.ifba.edu.inf011.command.TornarUrgenteCommand;
 import br.ifba.edu.inf011.model.documentos.AbstractDocumentoBase;
 import br.ifba.edu.inf011.model.documentos.Documento;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
 import br.ifba.edu.inf011.model.operador.Operador;
-import br.ifba.edu.inf011.model.strategy.AutenticadorStrategy;
+import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
 
 public class GerenciadorDocumentoModel {
     private CommandManager commandManager = new CommandManager();

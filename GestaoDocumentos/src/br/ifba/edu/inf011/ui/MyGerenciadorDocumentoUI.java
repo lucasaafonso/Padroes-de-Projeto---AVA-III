@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 import br.ifba.edu.inf011.af.DocumentOperatorFactory;
 import br.ifba.edu.inf011.model.FWDocumentException;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
-import br.ifba.edu.inf011.model.factory.AutenticadorFactory;
-import br.ifba.edu.inf011.model.strategy.AutenticadorStrategy;
+import br.ifba.edu.inf011.factory.AutenticadorFactory;
+import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
 
 public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	 public MyGerenciadorDocumentoUI(DocumentOperatorFactory factory) {
