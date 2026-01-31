@@ -9,6 +9,7 @@ import br.ifba.edu.inf011.factory.AutenticadorFactory;
 import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
 
 public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
+
 	 public MyGerenciadorDocumentoUI(DocumentOperatorFactory factory) {
 		super(factory);
 	}
@@ -38,6 +39,8 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	protected void salvarConteudo() {
         try {
             this.controller.salvarDocumento(this.atual, this.areaEdicao.getConteudo());
+			this.atual = this.controller.getDocumentoAtual();
+        	this.refreshUI();
         } catch (Exception e) {
         	JOptionPane.showMessageDialog(this, "Erro ao Salvar: " + e.getMessage());
         }
@@ -55,12 +58,13 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	protected void assinarDocumento() {
 		try {
 			this.controller.assinarDocumento(this.atual);
+			this.atual = this.controller.getDocumentoAtual();
 			this.refreshUI();
 		} catch (FWDocumentException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao assinar: " + e.getMessage());
 		}		
 	}
-	
+
 	protected void tornarUrgente() {
 		try {
 			this.controller.tornarUrgente(this.atual);
@@ -82,18 +86,21 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
         }
     }	
 
-	private void undo() {
+	protected void undo() {
 		this.controller.desfazer();
-		this.refreshUI();
+		this.atual = this.controller.getDocumentoAtual();
+    	this.refreshUI();
 	}
 
-	private void redo() {
+	protected void redo() {
 		this.controller.refazer();
+		this.atual = this.controller.getDocumentoAtual();
 		this.refreshUI();
 	}
 
-	private void consolidar() {
+	protected void consolidar() {
 		this.controller.consolidar();
+		this.atual = this.controller.getDocumentoAtual();
 		this.refreshUI();
 	}
 }

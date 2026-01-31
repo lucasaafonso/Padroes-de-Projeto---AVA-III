@@ -12,7 +12,7 @@ public class AssinarDocumentoCommand implements Command{
     private DocumentoMemento backup;
     private GestorDocumento gestor;
     private Operador operador;
-    private Documento novoDocumento;
+    private Documento novo;
 
     public AssinarDocumentoCommand (AbstractDocumentoBase documento, GestorDocumento gestor, Operador operador) {
         this.documento = documento;
@@ -23,7 +23,7 @@ public class AssinarDocumentoCommand implements Command{
     @Override
     public void execute() {
         backup = documento.salvar();
-        novoDocumento = gestor.assinar(documento, operador);
+        novo = gestor.assinar(documento, operador);
         DocumentoLogger.log("Assinar Documento");
     }
 
@@ -33,7 +33,7 @@ public class AssinarDocumentoCommand implements Command{
         DocumentoLogger.log("Undo Assinar Documnto");
     }
 
-    public Documento getNovoDocumento() {
-        return novoDocumento;
+    public Documento getNovo() {
+        return novo;
     }
 }

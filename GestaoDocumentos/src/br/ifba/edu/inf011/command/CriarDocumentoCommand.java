@@ -40,15 +40,17 @@ public class CriarDocumentoCommand implements Command{
             e.printStackTrace();
         }
 
-        operador.inicializar("jdc", "João das Couves");
-        try {
+        if (criado != null) {
+            operador.inicializar("jdc", "João das Couves");
+            try {
             criado.inicializar(operador, privacidade);
-        } catch (FWDocumentException e) {
+            } catch (FWDocumentException e) {
             e.printStackTrace();
+            }
+            autenticador.setAutenticadorStrategy(strategy);
+            autenticador.autenticar(criado);
+            this.repositorio.add(criado);
         }
-
-        autenticador.setAutenticadorStrategy(strategy);
-        autenticador.autenticar(criado);
     }
 
     @Override

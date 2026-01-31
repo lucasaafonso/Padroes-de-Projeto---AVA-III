@@ -10,7 +10,7 @@ public class TornarUrgenteCommand implements Command{
     private AbstractDocumentoBase documento;
     private GestorDocumento gestor;
     private DocumentoMemento backup;
-    private Documento novoDocumento;
+    private Documento novo;
 
     public TornarUrgenteCommand(AbstractDocumentoBase documento, GestorDocumento gestor) {
         this.documento = documento;
@@ -20,7 +20,7 @@ public class TornarUrgenteCommand implements Command{
     @Override
     public void execute() {
         backup = documento.salvar();
-        novoDocumento = gestor.tornarUrgente(documento);
+        novo = gestor.tornarUrgente(documento);
         DocumentoLogger.log("Documento marcado como urgente");
     }
 
@@ -30,7 +30,7 @@ public class TornarUrgenteCommand implements Command{
         DocumentoLogger.log("Undo Tornar Urgente");
     }
 
-    public Documento getNovoDocumento() {
-        return novoDocumento;
+    public Documento getNovo() {
+        return novo;
     }
 }

@@ -10,7 +10,7 @@ public class ProtegerDocumentoCommand implements Command{
     private AbstractDocumentoBase documento;
     private GestorDocumento gestor;
     private DocumentoMemento backup;
-    private Documento novoDocumento;
+    private Documento novo;
 
     public ProtegerDocumentoCommand(AbstractDocumentoBase documento, GestorDocumento gestor) {
         this.documento = documento;
@@ -20,7 +20,7 @@ public class ProtegerDocumentoCommand implements Command{
     @Override
     public void execute() {
         backup = documento.salvar();
-        novoDocumento = gestor.proteger(documento);
+        novo = gestor.proteger(documento);
         DocumentoLogger.log("Documento protegido");
     }
 
@@ -30,7 +30,7 @@ public class ProtegerDocumentoCommand implements Command{
         DocumentoLogger.log("Undo ProtegerDocumento");
     }
 
-    public Documento getNovoDocumento() {
-        return novoDocumento;
+    public Documento getNovo() {
+        return novo;
     }
 }

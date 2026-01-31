@@ -19,7 +19,7 @@ import br.ifba.edu.inf011.model.operador.Operador;
 import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
 
 public class GerenciadorDocumentoModel {
-    private CommandManager commandManager = new CommandManager();
+    private CommandManager commandManager;
 	private List<Documento> repositorio;
     private DocumentOperatorFactory factory;
     private Autenticador autenticador;
@@ -27,6 +27,7 @@ public class GerenciadorDocumentoModel {
     private Documento atual;
 
     public GerenciadorDocumentoModel(DocumentOperatorFactory factory) {
+        this.commandManager = new CommandManager();
         this.repositorio = new ArrayList<>();
         this.factory = factory;
         this.autenticador = new Autenticador();
@@ -38,7 +39,6 @@ public class GerenciadorDocumentoModel {
         CriarDocumentoCommand command = new CriarDocumentoCommand(factory, autenticador, autenticadorStrategy, privacidade, repositorio);
         commandManager.executar(command);
         Documento documento = command.getDocumentoCriado();
-        this.repositorio.add(documento);
         this.atual = documento;
         return documento;
     }
@@ -58,11 +58,10 @@ public class GerenciadorDocumentoModel {
 
         AssinarDocumentoCommand command = new AssinarDocumentoCommand((AbstractDocumentoBase)documento, gestor, operador);
         commandManager.executar(command);
-        Documento assinado = command.getNovoDocumento();
-        this.atualizarRepositorio(documento, assinado);
-        this.atual = assinado;
+        Documento novo = command.getNovo();
+        this.atual = novo;
         return atual;
-    }    
+    }
     
     public Documento protegerDocumento(Documento documento) throws FWDocumentException {
         if (documento == null) 
@@ -70,9 +69,8 @@ public class GerenciadorDocumentoModel {
 
         ProtegerDocumentoCommand command = new ProtegerDocumentoCommand((AbstractDocumentoBase)documento, gestor);
         commandManager.executar(command);
-        Documento protegido = command.getNovoDocumento();
-        this.atualizarRepositorio(documento, protegido);
-        this.atual = protegido;
+        Documento novo = command.getNovo();
+        this.atual = novo;
         return atual;        
     }    
     
@@ -82,9 +80,8 @@ public class GerenciadorDocumentoModel {
 
         TornarUrgenteCommand command = new TornarUrgenteCommand((AbstractDocumentoBase)documento, gestor);
         commandManager.executar(command);
-        Documento urgente = command.getNovoDocumento();
-        this.atualizarRepositorio(documento, urgente);
-        this.atual = urgente;
+        Documento novo = command.getNovo();
+        this.atual = novo;
         return atual;         
     }
 
@@ -143,7 +140,7 @@ public class GerenciadorDocumentoModel {
 		return this.atual;
 	}
 	
-	public void setDocumentoAtual(Documento doc) {
-		this.atual = doc;
+	public void setDocumentoAtual(Documento documento) {
+		this.atual = documento;
 	}      
 }

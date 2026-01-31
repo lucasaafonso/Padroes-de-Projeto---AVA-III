@@ -46,7 +46,6 @@ public abstract class AbstractGerenciadorDocumentosUI extends JFrame implements 
     	this.add(this.areaEdicao, BorderLayout.CENTER);
         this.add(this.barraDocs, BorderLayout.WEST);
         this.add(this.montarMenuOperacoes(), BorderLayout.EAST);    	
-    	
     }
 
     protected void refreshUI() {
@@ -62,7 +61,7 @@ public abstract class AbstractGerenciadorDocumentosUI extends JFrame implements 
 	public void valueChanged(ListSelectionEvent e) {
 		if (!e.getValueIsAdjusting()) {
 			int index = this.barraDocs.getIndiceDocSelecionado();
-	        if (index != -1) {
+	        if (index >= 0 && index < controller.getRepositorio().size()) {
 	            this.atual = controller.getRepositorio().get(index);
 	            this.refreshUI();
 	        }
