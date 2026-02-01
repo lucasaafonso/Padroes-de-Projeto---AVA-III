@@ -1,12 +1,12 @@
 package br.ifba.edu.inf011.command;
 
 import br.ifba.edu.inf011.model.DocumentoLogger;
+import br.ifba.edu.inf011.model.FWDocumentException;
 import br.ifba.edu.inf011.model.documentos.AbstractDocumentoBase;
-import br.ifba.edu.inf011.memento.DocumentoMemento;
 
 public class EditarDocumentoCommand implements Command{
     private AbstractDocumentoBase documento;
-    private DocumentoMemento backup;
+    private String conteudoAntigo;
     private String novoConteudo;
 
     public EditarDocumentoCommand(AbstractDocumentoBase documento, String novoConteudo) {
@@ -16,14 +16,18 @@ public class EditarDocumentoCommand implements Command{
 
     @Override
     public void execute() {
-        backup = documento.salvar();
+        try {
+            conteudoAntigo = documento.getConteudo();
+        } catch (FWDocumentException e) {
+            conteudoAntigo = null;
+        }
         documento.setConteudo(novoConteudo);
         DocumentoLogger.log("Editar Documento");
     }
 
     @Override
     public void undo() {
-        documento.restaurar(backup);
+        documento.setConteudo(conteudoAntigo);
         DocumentoLogger.log("Undo Editar Documento");
     }
 }
