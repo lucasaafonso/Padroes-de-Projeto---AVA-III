@@ -22,6 +22,8 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 		comandos.addOperacao("🔑 Proteger", e->this.protegerDocumento());
 		comandos.addOperacao("✍️ Assinar", e->this.assinarDocumento());
 		comandos.addOperacao("⏰ Urgente", e->this.tornarUrgente());
+		comandos.addOperacao("✍️💾 Alterar e Assinar", e->this.alterarAssinar());
+		comandos.addOperacao("⭐ Priorizar", e->this.priorizar());
 		comandos.addOperacao("↩️ Desfazer", e->this.undo());
 		comandos.addOperacao("↪️ Refazer", e->this.redo());
 		comandos.addOperacao("✅ Consolidar", e->this.consolidar());
@@ -49,6 +51,7 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	protected void protegerDocumento() {
 		try {
 			this.controller.protegerDocumento(this.atual);
+			this.atual = this.controller.getDocumentoAtual();
 			this.refreshUI();
 		} catch (FWDocumentException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao proteger: " + e.getMessage());
@@ -68,6 +71,7 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
 	protected void tornarUrgente() {
 		try {
 			this.controller.tornarUrgente(this.atual);
+			this.atual = this.controller.getDocumentoAtual();
 			this.refreshUI();
 		} catch (FWDocumentException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao tornar urgente: " + e.getMessage());
@@ -85,6 +89,28 @@ public class MyGerenciadorDocumentoUI extends AbstractGerenciadorDocumentosUI{
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
     }	
+
+	protected void alterarAssinar() {
+		try {
+			this.controller.acaoRapidaAssinarSalvar(atual, this.areaEdicao.getConteudo());
+			this.atual = this.controller.getDocumentoAtual();
+			this.refreshUI();
+		} catch (FWDocumentException e) {
+			
+			JOptionPane.showMessageDialog(this, "Erro ao alterar e assinar: " + e.getMessage());
+		}
+	}
+
+	protected void priorizar() {
+		try {
+			this.controller.acaoRapidaPriorizar(atual);
+			this.atual = this.controller.getDocumentoAtual();
+			this.refreshUI();
+		} catch (FWDocumentException e) {
+			
+			JOptionPane.showMessageDialog(this, "Erro ao priorizar: " + e.getMessage());
+		}
+	}
 
 	protected void undo() {
 		this.controller.desfazer();
