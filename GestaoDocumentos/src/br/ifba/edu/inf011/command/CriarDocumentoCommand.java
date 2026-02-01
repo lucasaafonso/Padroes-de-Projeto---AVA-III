@@ -9,6 +9,7 @@ import br.ifba.edu.inf011.model.documentos.Documento;
 import br.ifba.edu.inf011.model.documentos.Privacidade;
 import br.ifba.edu.inf011.model.operador.Operador;
 import br.ifba.edu.inf011.strategy.AutenticadorStrategy;
+import br.ifba.edu.inf011.model.DocumentoLogger;
 
 public class CriarDocumentoCommand implements Command{
     private DocumentOperatorFactory factory;
@@ -50,12 +51,14 @@ public class CriarDocumentoCommand implements Command{
             autenticador.setAutenticadorStrategy(strategy);
             autenticador.autenticar(criado);
             this.repositorio.add(criado);
+            DocumentoLogger.log("Documento criado");
         }
     }
 
     @Override
     public void undo() {
         repositorio.remove(criado);
+        DocumentoLogger.log("Undo Criar Documento");
     }
 
     public Documento getDocumentoCriado() {

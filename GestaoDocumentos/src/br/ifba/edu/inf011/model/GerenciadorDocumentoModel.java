@@ -110,7 +110,7 @@ public class GerenciadorDocumentoModel {
 
         Command macro = new MacroCommand(List.of(
                 new TornarUrgenteCommand(documento, gestor, this),
-                new AssinarDocumentoCommand(documento, gestor, operador, this)
+                new AssinarDocumentoCommand(null, gestor, operador, this)
         ));
 
         commandManager.executar(macro);
