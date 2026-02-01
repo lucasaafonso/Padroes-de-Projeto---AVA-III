@@ -1,7 +1,0 @@
-2026-02-01T11:04:36.456233600 - Documento criado
-2026-02-01T11:04:36.458253200 - Executado: CriarDocumentoCommand
-2026-02-01T11:04:38.631070500 - Salvar Documento
-2026-02-01T11:04:38.631070500 - Executado: SalvarDocumentoCommand
-2026-02-01T11:04:40.226199500 - Documento marcado como urgente
-2026-02-01T11:04:40.231259200 - Assinar Documento
-2026-02-01T11:04:40.232661 - Executado: MacroCommand
